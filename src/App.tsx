@@ -10,9 +10,11 @@ interface IQuote {
 
 const App = () => {
   const [quotes, setQuotes] = useState<IQuote[]>([]);
-  const source = axios.CancelToken.source();
+  const [quote, setQuote] = useState<IQuote | null>(null);
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     const fetchQuotes = async () => {
       try {
         const { data } = await axios.get<IQuote[]>(
@@ -36,7 +38,12 @@ const App = () => {
     return () => {
       source.cancel('Component is unmounted');
     };
-  }, [source]);
+  }, []);
+
+  const getRandomQuote = () => {
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    setQuote(quote);
+  };
 
   if (!quotes.length) {
     return <div className="loader"></div>;
@@ -45,9 +52,18 @@ const App = () => {
   return (
     <div className="quote-container">
       <div className="button-container">
-        <button className="twitter-button" title="Tweet This!">
+        <button
+          className="twitter-button"
+          title="Tweet This!"
+          onClick={() => {
+            if (!quote) return;
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${quote.text} - ${quote.author}`;
+            window.open(twitterUrl, '_blank');
+          }}
+        >
           <FaTwitter />
         </button>
+        <button onClick={() => getRandomQuote()}>New Quote</button>
       </div>
     </div>
   );
