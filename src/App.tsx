@@ -38,6 +38,10 @@ const App = () => {
     };
   }, [source]);
 
+  if (!quotes.length) {
+    return <div className="loader"></div>;
+  }
+
   return (
     <div className="quote-container">
       <div className="button-container">
