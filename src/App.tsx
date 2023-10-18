@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { FaTwitter, FaQuoteLeft } from 'react-icons/fa';
 import axios, { isCancel } from 'axios';
+import classNames from 'classnames';
 
 interface IQuote {
   text: string;
@@ -67,10 +68,9 @@ const App = () => {
       {quote ? (
         <>
           <div
-            className={[
-              'quote-text',
-              quote.text.length > 120 ? 'long-quote' : '',
-            ].join(' ')}
+            className={classNames('quote-text', {
+              'long-quote': quote.text.length > 120,
+            })}
           >
             <FaQuoteLeft />
             <span>{quote.text}</span>
