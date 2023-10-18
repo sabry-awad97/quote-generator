@@ -69,14 +69,12 @@ const App = () => {
         <>
           <QuoteText className={quote.text.length > 120 ? 'long-quote' : ''}>
             <FaQuoteLeft className="quote-icon" />
-            <span>{quote.text}</span>
+            {quote.text}
           </QuoteText>
-          <QuoteAuthor>
-            <span>{quote.author || 'Unknown'}</span>
-          </QuoteAuthor>
+          <QuoteAuthor>{quote.author || 'Unknown'}</QuoteAuthor>
         </>
       ) : null}
-      <ButtonContainer className="button-container">
+      <ButtonContainer>
         <Button
           className="twitter-button"
           title="Tweet This!"
@@ -134,7 +132,7 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
   cursor: pointer;
   font-size: 1.2rem;
   height: 2.5rem;
