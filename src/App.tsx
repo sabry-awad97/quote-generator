@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { FaTwitter } from 'react-icons/fa';
+import { FaTwitter, FaQuoteLeft } from 'react-icons/fa';
 import axios, { isCancel } from 'axios';
 
 interface IQuote {
@@ -51,6 +51,21 @@ const App = () => {
 
   return (
     <div className="quote-container">
+      {quote ? (
+        <>
+          <div
+            className={`quote-text ${
+              quote.text.length > 120 ? 'long-quote' : ''
+            }`}
+          >
+            <FaQuoteLeft />
+            <span>{quote.text}</span>
+          </div>
+          <div className="quote-author">
+            <span>{quote.author || 'Unknown'}</span>
+          </div>
+        </>
+      ) : null}
       <div className="button-container">
         <button
           className="twitter-button"
