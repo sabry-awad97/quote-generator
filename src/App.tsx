@@ -50,6 +50,14 @@ const App = () => {
     setQuote(quote);
   };
 
+  const handleTwitterClick = () => {
+    if (!quote) return;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${quote.text} - ${
+      quote.author || 'Unknown'
+    }`;
+    window.open(twitterUrl, '_blank');
+  };
+
   if (!quotes.length) {
     return <div className="loader"></div>;
   }
@@ -59,9 +67,10 @@ const App = () => {
       {quote ? (
         <>
           <div
-            className={`quote-text ${
-              quote.text.length > 120 ? 'long-quote' : ''
-            }`}
+            className={[
+              'quote-text',
+              quote.text.length > 120 ? 'long-quote' : '',
+            ].join(' ')}
           >
             <FaQuoteLeft />
             <span>{quote.text}</span>
@@ -75,15 +84,11 @@ const App = () => {
         <button
           className="twitter-button"
           title="Tweet This!"
-          onClick={() => {
-            if (!quote) return;
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${quote.text} - ${quote.author}`;
-            window.open(twitterUrl, '_blank');
-          }}
+          onClick={handleTwitterClick}
         >
           <FaTwitter />
         </button>
-        <button onClick={() => getRandomQuote()}>New Quote</button>
+        <button onClick={getRandomQuote}>New Quote</button>
       </div>
     </div>
   );
