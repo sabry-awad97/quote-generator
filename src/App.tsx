@@ -42,6 +42,11 @@ const App = () => {
 
   const getRandomQuote = () => {
     const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+    if (quote.author) {
+      quote.author = quote.author.replace(', type.fit', '');
+    }
+
     setQuote(quote);
   };
 
